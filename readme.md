@@ -1,6 +1,7 @@
 #Forked from Laravel Homestead
 
 - `vagrant box add camdesigns/basebox`
+- `vagrant plugin install vagrant-vbguest`
 - add mappings in `homestead.yml`
 - `ssh-keygen -t rsa -C "u@email.com"`
 

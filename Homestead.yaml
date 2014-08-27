@@ -2,6 +2,9 @@
 ip: "192.168.10.10"
 memory: 2048
 cpus: 1
+port80: 8000
+port3306: 3306
+port5432: 5432
 
 authorize: ~/.ssh/id_rsa.pub
 
@@ -9,12 +12,12 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: ~/Sites/laravel
-      to: /vagrant/laravel
+    - map: ~/Sites/testbed
+      to: /vagrant/testbed
 
 sites:
-    - map: api.base.app
-      to: /vagrant/laravel/public
+    - map: test.local.app
+      to: /vagrant/testbed
 
 #angular build
 angulardist:
