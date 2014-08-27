@@ -10,12 +10,15 @@
 192.168.10.10   api.base.app mock.base.app docs.base.app dist.base.app genghis.base.app beanstalkd.base.app opcache.base.app test.base.app redis.base.app
 `
 
+##mysql: `root:root`
+  ![image](docs/mysql.png)
+
 ##TODO:
 
-- Add redis-commander to upstream box
+- check redis-commander in upstream box
 - add shortcuts for APIB
 - add Vim to upstream
 - add mongo upstream
 - benastalkd app not working
-- test app not working
-- opcache app not working
+- change mysql bind to 127.0.0.1
+
