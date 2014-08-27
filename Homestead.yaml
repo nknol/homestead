@@ -9,13 +9,39 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: ~/Code
-      to: /home/vagrant/Code
+    - map: ~/Sites/laravel
+      to: /vagrant/laravel
 
 sites:
-    - map: homestead.app
-      to: /home/vagrant/Code/Laravel/public
+    - map: api.base.app
+      to: /vagrant/laravel/public
+
+angulardist:
+    - map: dist.base.app
+      to: /vagrant/base-ui/dist
 
 variables:
     - key: APP_ENV
       value: local
+
+aglio:
+    - url: docs.base.app
+
+apimock:
+    - url: mock.base.app
+
+genghis:
+    - map: genghis.base.app
+      to: /vagrant/tools/genghis
+
+beanstalkd:
+    - map: beanstalkd.base.app
+      to: /vagrant/tools/beanstalkd
+
+opcache:
+    - map: opcache.base.app
+      to: /vagrant/tools/opcache
+
+test:
+    - map: test.base.app
+      to: /vagrant/tools/test

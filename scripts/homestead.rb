@@ -48,8 +48,64 @@ class Homestead
     # Install All The Configured Nginx Sites
     settings["sites"].each do |site|
       config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/serve.sh $1 $2"
+          s.inline = "bash /vagrant/scripts/nginx/serve.sh $1 $2"
           s.args = [site["map"], site["to"]]
+      end
+    end
+
+    # Install Ghenghis App
+    settings["genghis"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/genghis.sh $1 $2"
+          s.args = [site["map"], site["to"]]
+      end
+    end
+
+    # Install Beanstalkd App
+    settings["beanstalkd"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/beanstalkd.sh $1 $2"
+          s.args = [site["map"], site["to"]]
+      end
+    end
+
+    # Install Opcache App
+    settings["opcache"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/opcache.sh $1 $2"
+          s.args = [site["map"], site["to"]]
+      end
+    end
+
+    # Install Test App
+    settings["test"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/test.sh $1 $2"
+          s.args = [site["map"], site["to"]]
+      end
+    end
+
+    # Install AngularDist App
+    settings["angulardist"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/angulardist.sh $1 $2"
+          s.args = [site["map"], site["to"]]
+      end
+    end
+
+     # Install Aglio App
+    settings["aglio"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/aglio.sh $1"
+          s.args = [site["url"]]
+      end
+    end
+
+    # Install Api-mock App
+    settings["apimock"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/nginx/apimock.sh $1"
+          s.args = [site["url"]]
       end
     end
 
