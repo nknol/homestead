@@ -1,35 +1,23 @@
 #!/usr/bin/env bash
 
 block="server {
-  listen *:80;
-  server_name  $1;
+    listen *:80;
 
-  root $2;
-  index opcache.php;
+    server_name $1;
 
-  location  ~ ^/(opcache)\.php(/|$) {
-        fastcgi_param HTTPS off;
-        fastcgi_param PATH_INFO \$fastcgi_path_info;
-        fastcgi_param PATH_TRANSLATED \$document_root$fastcgi_path_info;
-        fastcgi_param SCRIPT_FILENAME \$document_root$fastcgi_script_name;
-        fastcgi_param APP_ENV dev;
+    root $2;
 
+    location / {
         fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-
-        proxy_buffer_size 128k;
-        proxy_buffers 4 256k;
-        proxy_busy_buffers_size 256k;
-
-        fastcgi_buffer_size 128k;
-        fastcgi_buffers 4 256k;
-        fastcgi_busy_buffers_size 256k;
-
         include fastcgi_params;
-  }
-  sendfile off;
-}
+        fastcgi_param SCRIPT_FILENAME \$document_root/genghis.php;
+        fastcgi_param SCRIPT_NAME /genghis.php;
+        fastcgi_param PATH_INFO \$uri;
 
+        rewrite /genghis.php / permanent;
+    }
+    sendfile off;
+}
 "
 
 echo "$block" > "/etc/nginx/sites-available/$1"

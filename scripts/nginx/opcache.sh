@@ -10,8 +10,8 @@ block="server {
   location  ~ ^/(opcache)\.php(/|$) {
         fastcgi_param HTTPS off;
         fastcgi_param PATH_INFO \$fastcgi_path_info;
-        fastcgi_param PATH_TRANSLATED \$document_root$fastcgi_path_info;
-        fastcgi_param SCRIPT_FILENAME \$document_root$fastcgi_script_name;
+        fastcgi_param PATH_TRANSLATED \$document_root\$fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         fastcgi_param APP_ENV dev;
 
         fastcgi_pass unix:/var/run/php5-fpm.sock;

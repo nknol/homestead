@@ -16,6 +16,7 @@ sites:
     - map: api.base.app
       to: /vagrant/laravel/public
 
+#angular build
 angulardist:
     - map: dist.base.app
       to: /vagrant/base-ui/dist
@@ -24,12 +25,14 @@ variables:
     - key: APP_ENV
       value: local
 
+# API Blueprint
 aglio:
     - url: docs.base.app
 
 apimock:
     - url: mock.base.app
 
+#Tools
 genghis:
     - map: genghis.base.app
       to: /vagrant/tools/genghis
@@ -45,3 +48,6 @@ opcache:
 test:
     - map: test.base.app
       to: /vagrant/tools/test
+
+rediscommander:
+    - url: redis.base.app

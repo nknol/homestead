@@ -17,7 +17,7 @@ block="server {
 
       location ~* ^.+\.(css|js|jpg|gif|png|txt|ico|swf|xml)$ {
           access_log off;
-          root /vagrant/tools/beanstalkd/public;
+          root $2;
           expires modified +90d;
       }
 
