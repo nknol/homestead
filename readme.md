@@ -18,10 +18,6 @@
 
 ##TODO:
 
-- check redis-commander in upstream box
 - add shortcuts for APIB
-- add Vim to upstream
-- add mongo upstream
-- benastalkd app not working
-- change mysql bind to 127.0.0.1
-
+- beanstalkd app not working
+-_arguments:450: _vim_files: function definition file not found

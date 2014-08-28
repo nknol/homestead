@@ -40,16 +40,6 @@ class Homestead
       s.inline = "cp /vagrant/aliases /home/vagrant/.bash_aliases"
     end
 
-    # Setup Vim
-    config.vm.provision "shell" do |s|
-      s.inline = "cp -ir /vagrant/scripts/dot/.vim /home/vagrant/ && cp -ir /vagrant/scripts/dot/.vimrc /home/vagrant/ && cp -ir /vagrant/scripts/dot/.viminfo /home/vagrant/ && cp -ir /vagrant/scripts/dot/.multitailrc /home/vagrant/"
-    end
-
-   # Install Redis-Commander
-    config.vm.provision "shell" do |s|
-      s.inline = "sudo npm install -g redis-commander"
-    end
-
     # Register All Of The Configured Shared Folders
     settings["folders"].each do |folder|
       config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
