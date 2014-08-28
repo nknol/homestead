@@ -12,12 +12,12 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: ~/Sites/testbed
-      to: /vagrant/testbed
+    - map: ~/Sites/laravel
+      to: /vagrant/laravel
 
 sites:
-    - map: test.local.app
-      to: /vagrant/testbed
+    - map: api.base.app
+      to: /vagrant/laravel/public
 
 #angular build
 angulardist:

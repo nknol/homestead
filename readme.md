@@ -1,5 +1,7 @@
 #Forked from Laravel Homestead
 
+- VBox 4.3.14
+- vagrant 1.6.0+
 - `vagrant box add camdesigns/basebox`
 - `vagrant plugin install vagrant-vbguest`
 - add mappings in `homestead.yml`
