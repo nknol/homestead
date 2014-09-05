@@ -54,66 +54,82 @@ class Homestead
     end
 
     # Install Ghenghis App
-    settings["genghis"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/genghis.sh $1 $2"
-          s.args = [site["map"], site["to"]]
+    if settings.has_key?("genghis")
+      settings["genghis"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/genghis.sh $1 $2"
+            s.args = [site["map"], site["to"]]
+        end
       end
     end
 
     # Install Beanstalkd App
-    settings["beanstalkd"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/beanstalkd.sh $1 $2"
-          s.args = [site["map"], site["to"]]
+    if settings.has_key?("beanstalkd")
+      settings["beanstalkd"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/beanstalkd.sh $1 $2"
+            s.args = [site["map"], site["to"]]
+        end
       end
     end
 
     # Install Opcache App
-    settings["opcache"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/opcache.sh $1 $2"
-          s.args = [site["map"], site["to"]]
+    if settings.has_key?("opcache")
+      settings["opcache"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/opcache.sh $1 $2"
+            s.args = [site["map"], site["to"]]
+        end
       end
     end
 
     # Install Test App
-    settings["test"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/test.sh $1 $2"
-          s.args = [site["map"], site["to"]]
+    if settings.has_key?("test")
+      settings["test"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/test.sh $1 $2"
+            s.args = [site["map"], site["to"]]
+        end
       end
     end
 
     # Install AngularDist App
-    settings["angulardist"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/angulardist.sh $1 $2"
-          s.args = [site["map"], site["to"]]
+    if settings.has_key?("angulardist")
+      settings["angulardist"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/angulardist.sh $1 $2"
+            s.args = [site["map"], site["to"]]
+        end
       end
     end
 
      # Install Aglio App
-    settings["aglio"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/aglio.sh $1"
-          s.args = [site["url"]]
+    if settings.has_key?("aglio")
+      settings["aglio"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/aglio.sh $1"
+            s.args = [site["url"]]
+        end
       end
     end
 
     # Install Api-mock App
-    settings["apimock"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/apimock.sh $1"
-          s.args = [site["url"]]
+    if settings.has_key?("apimock")
+      settings["apimock"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/apimock.sh $1"
+            s.args = [site["url"]]
+        end
       end
     end
 
     # Install Redis-Commander App
-    settings["rediscommander"].each do |site|
-      config.vm.provision "shell" do |s|
-          s.inline = "bash /vagrant/scripts/nginx/redis-commander.sh $1"
-          s.args = [site["url"]]
+    if settings.has_key?("rediscommander")
+      settings["rediscommander"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/nginx/redis-commander.sh $1"
+            s.args = [site["url"]]
+        end
       end
     end
 
@@ -126,5 +142,16 @@ class Homestead
         end
       end
     end
+
+    # Install MySQL stuff
+    if settings.has_key?("mysql")
+      settings["mysql"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "/usr/bin/mysql -u$2 -p$3 -e \"create database $1; grant all on $1.* to $2@localhost identified by '$3';\""
+            s.args = [site["database"], site["user"], site["password"], site["dump"]]
+        end
+      end
+    end
+
   end
 end
