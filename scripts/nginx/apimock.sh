@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 
-block="##########################
-##   API BluePrint Mock  ##
-###########################
-
-server {
+block="server {
     listen *:80;
     server_name $1;
     location / {
         proxy_set_header X-Real-IP  \$remote_addr;
         proxy_set_header X-Forwarded-For \$remote_addr;
         proxy_set_header Host \$host;
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:$2;
 
         add_header Access-Control-Allow-Origin *;
         add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS, DELETE, PUT';

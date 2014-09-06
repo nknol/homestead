@@ -13,12 +13,19 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: ~/Sites/dir
-      to: /vagrant/dir
+    - map: ~/Sites/testbed
+      to: /vagrant/testbed
 
-sites:
+php-sites:
     - map: app.dev
-      to: /vagrant/dir
+      to: /vagrant/testbed
+
+node-sites:
+    - url: docs.base.app # aglio
+      port: 3000
+
+    # - url: mock.base.app # api-mock
+    #   port: 4000
 
 # mysql:
 #     - database: dbname
@@ -35,29 +42,22 @@ variables:
     - key: APP_ENV
       value: local
 
-# API Blueprint
-# aglio:
-#     - url: docs.base.app
-
-# apimock:
-#     - url: mock.base.app
-
-#Tools
+# # Tools
 # genghis:
 #     - map: genghis.base.app
 #       to: /vagrant/tools/genghis
 
-beanstalkd:
-    - map: beanstalkd.base.app
-      to: /vagrant/tools/beanstalkd
+# beanstalkd:
+#     - map: beanstalkd.base.app
+#       to: /vagrant/tools/beanstalkd
 
-opcache:
-    - map: opcache.base.app
-      to: /vagrant/tools/opcache
+# opcache:
+#     - map: opcache.base.app
+#       to: /vagrant/tools/opcache
 
-test:
-    - map: test.base.app
-      to: /vagrant/tools/test
+# test:
+#     - map: test.base.app
+#       to: /vagrant/tools/test
 
-# rediscommander:
-#     - url: redis.base.app
+rediscommander:
+    - url: redis.base.app
