@@ -56,6 +56,15 @@ class Homestead
       end
     end
 
+    if settings.has_key?("repos")
+      settings["repos"].each do |repo|
+        config.vm.provision "shell" do |s|
+            s.inline = "cd $2 && git clone $1"
+            s.args = [repo["from"], repo["dir"]]
+        end
+      end
+    end
+
     # Symlink the files
     if settings.has_key?("files")
       settings["files"].each do |file|
@@ -72,15 +81,6 @@ class Homestead
         config.vm.provision "shell" do |s|
             s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php5/fpm/php-fpm.conf && service php5-fpm restart"
             s.args = [var["key"], var["value"]]
-        end
-      end
-    end
-
-    if settings.has_key?("repos")
-      settings["repos"].each do |repo|
-        config.vm.provision "shell" do |s|
-            s.inline = "cd $2 && git clone $1"
-            s.args = [repo["from"], repo["dir"]]
         end
       end
     end
