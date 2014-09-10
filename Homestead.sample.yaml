@@ -1,0 +1,76 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+
+ports:
+    - 80: 8000
+      3306: 3306
+      5432: 5432
+      11211: 11211
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: ~/Sites/dir
+      to: /vagrant/dir
+
+sites: # PHP / Laravel
+    - map: app.dev
+      to: /vagrant/dir
+
+variables:
+    - key: APP_ENV
+      value: local
+
+files:
+    - from: /vagrant/scripts/files/nginx/mock.conf
+      to: /etc/nginx/sites-enabled/mock.conf
+
+    - from: /vagrant/scripts/files/nginx/aglio.conf
+      to: /etc/nginx/sites-enabled/aglio.conf
+
+    - from: /vagrant/scripts/files/nginx/beanstalkd.conf
+      to: /etc/nginx/sites-enabled/beanstalkd.conf
+
+    - from: /vagrant/scripts/files/nginx/genghis.conf
+      to: /etc/nginx/sites-enabled/genghis.conf
+
+    - from: /vagrant/scripts/files/nginx/ngrok.conf
+      to: /etc/nginx/sites-enabled/ngrok.conf
+
+    - from: /vagrant/scripts/files/nginx/api.conf
+      to: /etc/nginx/sites-enabled/api.conf
+
+    - from: /vagrant/scripts/files/nginx/spa.conf
+      to: /etc/nginx/sites-enabled/spa.conf
+
+commands:
+    - sudo npm install -g sails
+    - sudo /etc/init.d/nginx restart
+
+# Not supported yet
+#
+# repos:
+#     - from: git@github.com:laravel/homestead.git
+#       dir: /vagrant
+#
+# databases:
+#     mysql:
+#         - dbname: database_name
+#           username: root
+#           password: root
+#           import: /vagrant/files/mysql_import.sql
+#     mongo:
+#         - dbname: database_name
+#           username: root
+#           password: root
+#           import: /vagrant/files/mongo_import.bson
+#     postgresql:
+#         - dbname: database_name
+#           username: root
+#           password: root
+#           import: /vagrant/files/mongo_import.pgsql

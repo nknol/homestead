@@ -1,5 +1,5 @@
 /.vagrant
 laravel/
-base-ui/
-twitter-api-blueprint/
-
+dmf
+Homestead.yaml
+*.log
