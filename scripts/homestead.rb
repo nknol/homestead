@@ -23,7 +23,7 @@ class Homestead
 
     # Configure The Public Key For SSH Access
     config.vm.provision "shell" do |s|
-      s.inline = "echo $1 | grep -xq \"$1\" /home/vagrant/.ssh/authorized_keys || echo $1 | tee -a /home/vagrant/.ssh/authorized_keys"
+      s.inline = "echo $1 | grep -xq \"$1\" /home/vagrant/.ssh/authorized_keys || echo $1 | tee -a /home/vagrant/.ssh/authorized_keys && echo -e \"Host github.com\n\tStrictHostKeyChecking no\n\" >> ~/.ssh/config && echo -e \"Host elephanthub.net\n\tStrictHostKeyChecking no\n\" >> ~/.ssh/config"
       s.args = [File.read(File.expand_path(settings["authorize"]))]
     end
 
@@ -76,14 +76,14 @@ class Homestead
       end
     end
 
-    # if settings.has_key?("repos")
-    #   settings["repos"].each do |repo|
-    #     config.vm.provision "shell" do |s|
-    #         s.inline = "cd $2 && git clone $1"
-    #         s.args = [repo["from"], repo["dir"]]
-    #     end
-    #   end
-    # end
+    if settings.has_key?("repos")
+      settings["repos"].each do |repo|
+        config.vm.provision "shell" do |s|
+            s.inline = "cd $2 && git clone $1"
+            s.args = [repo["from"], repo["dir"]]
+        end
+      end
+    end
 
     # # Create PostgreSQL Databases # https://github.com/laravel/homestead/pull/51/files
     # settings["databases"]["postgresql"].each do |postgresql|
