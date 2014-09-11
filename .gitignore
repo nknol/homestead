@@ -5,3 +5,7 @@ Homestead.yaml
 *.log
 
 box-config/
+
+dmf-api-blueprint/
+
+dmf-api/

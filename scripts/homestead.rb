@@ -2,7 +2,7 @@ class Homestead
   def Homestead.configure(config, settings)
     # Configure The Box
     config.vm.box = "camdesigns/basebox"
-    config.vm.hostname = "basebox"
+    config.vm.hostname = settings["name"]
 
     # Configure A Private Network IP
     config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
