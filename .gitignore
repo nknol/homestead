@@ -3,3 +3,5 @@ laravel/
 dmf
 Homestead.yaml
 *.log
+
+box-config/

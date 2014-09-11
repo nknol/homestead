@@ -17,13 +17,13 @@ class Homestead
     end
 
     # Configure Port Forwarding To The Box
-    config.vm.network "forwarded_port", guest: 80, host: settings["port80"]
+    # config.vm.network "forwarded_port", guest: 80, host: settings["port80"]
     config.vm.network "forwarded_port", guest: 3306, host: settings["port3306"]
     config.vm.network "forwarded_port", guest: 5432, host: settings["port5432"]
 
     # Configure The Public Key For SSH Access
     config.vm.provision "shell" do |s|
-      s.inline = "echo $1 | grep -xq \"$1\" /home/vagrant/.ssh/authorized_keys || echo $1 | tee -a /home/vagrant/.ssh/authorized_keys && echo -e \"Host github.com\n\tStrictHostKeyChecking no\n\" >> ~/.ssh/config && echo -e \"Host elephanthub.net\n\tStrictHostKeyChecking no\n\" >> ~/.ssh/config"
+      s.inline = "git config --global http.sslverify false && echo $1 | grep -xq \"$1\" /home/vagrant/.ssh/authorized_keys || echo $1 | tee -a /home/vagrant/.ssh/authorized_keys && echo -e \"Host github.com\n\tStrictHostKeyChecking no\n\" >> ~/.ssh/config && echo -e \"Host elephanthub.net\n\tStrictHostKeyChecking no\n\" >> ~/.ssh/config"
       s.args = [File.read(File.expand_path(settings["authorize"]))]
     end
 
