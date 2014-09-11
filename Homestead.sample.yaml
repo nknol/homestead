@@ -16,13 +16,13 @@ folders:
     - map: ~/Sites/dir
       to: /vagrant/dir
 
-sites: # PHP / Laravel
-    - map: app.dev
-      to: /vagrant/dir
+# sites: # PHP / Laravel
+#     - map: app.dev
+#       to: /vagrant/dir
 
-variables:
-    - key: APP_ENV
-      value: local
+# variables:
+#     - key: APP_ENV
+#       value: local
 
 files:
     - from: /vagrant/scripts/files/nginx/mock.conf
@@ -37,6 +37,9 @@ files:
     - from: /vagrant/scripts/files/nginx/genghis.conf
       to: /etc/nginx/sites-enabled/genghis.conf
 
+    - from: /vagrant/scripts/files/nginx/redis.conf
+      to: /etc/nginx/sites-enabled/redis.conf
+
     - from: /vagrant/scripts/files/nginx/ngrok.conf
       to: /etc/nginx/sites-enabled/ngrok.conf
 
@@ -50,11 +53,11 @@ commands:
     - sudo npm install -g sails
     - sudo /etc/init.d/nginx restart
 
+repos:
+    - from: git@github.com:laravel/homestead.git
+      dir: /vagrant
+
 # Not supported yet
-#
-# repos:
-#     - from: git@github.com:laravel/homestead.git
-#       dir: /vagrant
 #
 # databases:
 #     mysql:
