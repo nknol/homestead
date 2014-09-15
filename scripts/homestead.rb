@@ -50,7 +50,7 @@ class Homestead
     if settings.has_key?("sites")
       settings["sites"].each do |site|
         config.vm.provision "shell" do |s|
-            s.inline = "bash /vagrant/scripts/nginx/serve.sh $1 $2"
+            s.inline = "bash /vagrant/scripts/serve.sh $1 $2"
             s.args = [site["map"], site["to"]]
         end
       end
