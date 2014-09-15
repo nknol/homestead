@@ -43,15 +43,17 @@ class Homestead
     end
 
     # Register All Of The Configured Shared Folders # https://github.com/laravel/homestead/pull/70
-    settings["folders"].each do |folder|
-      config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil, :nfs => true
+    if settings.has_key?("folders")
+      settings["folders"].each do |folder|
+        config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil, :nfs => true
+      end
     end
 
     # Install All The Configured Nginx Sites
     if settings.has_key?("sites")
       settings["sites"].each do |site|
         config.vm.provision "shell" do |s|
-            s.inline = "bash /vagrant/scripts/nginx/serve.sh $1 $2"
+            s.inline = "bash /vagrant/scripts/serve.sh $1 $2"
             s.args = [site["map"], site["to"]]
         end
       end
