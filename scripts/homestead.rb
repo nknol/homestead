@@ -17,10 +17,9 @@ class Homestead
     end
 
     # Configure Port Forwarding To The Box
-    # config.vm.network "forwarded_port", guest: 80, host: settings["port80"]
-    config.vm.network "forwarded_port", guest: 3306, host: settings["port3306"]
-    config.vm.network "forwarded_port", guest: 27017, host: settings["port27017"]
-    config.vm.network "forwarded_port", guest: 5432, host: settings["port5432"]
+    settings["ports"].each do |port|
+      config.vm.network "forwarded_port", guest: port["map"], host: port["to"]
+    end
 
     # Configure The Public Key For SSH Access
     config.vm.provision "shell" do |s|
@@ -62,7 +61,7 @@ class Homestead
     if settings.has_key?("repos")
       settings["repos"].each do |repo|
         config.vm.provision "shell" do |s|
-            s.inline = "cd $2 && git clone $1"
+            s.inline = "bash /vagrant/scripts/git.sh $1 $2"
             s.args = [repo["from"], repo["dir"]]
         end
       end
