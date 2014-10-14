@@ -95,6 +95,13 @@ repos:
     - ...
  ```
 
+- Git user
+```
+git:
+   - name: User
+   - email: user@email.com
+```
+
 ##TODO:
 - add shortcuts for APIB
 - beanstalkd app not working
