@@ -1,15 +1,17 @@
 /.vagrant
-laravel/
-dmf
+.idea/
+
 Homestead.yaml
 *.log
-
 box-config/
 
+laravel/
+
+dmf
 dmf-api-blueprint/
-
 dmf-api/
-
 dmf-console/
-
 dmf-box-config/
+
+adhive/
+adhive-ui/
