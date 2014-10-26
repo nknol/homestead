@@ -1,0 +1,12 @@
+{
+    "apps" : [{
+        "name"       : "api",
+        "script"     : "./app.js",
+        "args" : ["lift"],
+        "watch" : true,
+        "ignoreWatch" : [".tmp/*", "node_modules", ".git/*", "test/*", "package.json"],
+        "env": {
+            "NODE_ENV": "development"
+        }
+    }]
+}
