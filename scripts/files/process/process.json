@@ -1,0 +1,12 @@
+{
+    "apps" : [{
+        "name"       : "geo-api",
+        "script"     : "./app.js",
+        "args" : ["lift"],
+        "watch" : true,
+        "ignoreWatch" : [".tmp/*", "node_modules", ".git/*"],
+        "env": {
+            "NODE_ENV": "derp"
+        }
+    }]
+}

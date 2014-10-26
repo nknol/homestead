@@ -1,0 +1,13 @@
+{
+    "apps" : [{
+        "name"       : "api",
+        "script"     : "./app.js",
+        "args" : ["lift"],
+        "watch" : true,
+        "exec_mode"  : "cluster_mode",
+        "ignoreWatch" : [".tmp/*", "node_modules", ".git/*"],
+        "env": {
+            "NODE_ENV": "stage"
+        }
+    }]
+}
