@@ -9,6 +9,7 @@ class Homestead
 
     # Configure A Few VirtualBox Settings
     config.vm.provider "virtualbox" do |vb|
+      vb.name = settings["name"]
       vb.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "2048"]
       vb.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
@@ -117,6 +118,25 @@ class Homestead
         end
       end
     end
-
+    
+    # Configure Git User
+    if settings.has_key?("git")
+      settings["git"].each do |g|
+        config.vm.provision "shell" do |s|
+            s.privileged = false
+            s.inline = "git config --global user.name \"$1\" && git config --global user.email \"$2\""
+            s.args = [g["name"], g["email"]]
+        end
+      end
+    end
+    
+  # Updating the hosts file with all the sites that are defined in Homestead.yaml
+  if Vagrant.has_plugin?("vagrant-hostsupdater") && site["hosts_file_additions"] == true
+        hosts = []
+        settings["sites"].each do |site|
+          hosts.push(site["map"])
+        end
+        config.hostsupdater.aliases = hosts
+    end
   end
 end
