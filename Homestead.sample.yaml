@@ -21,13 +21,13 @@ keys:
     - ~/.ssh/github_rsa
 
 repos:
-    - from: git@elephanthub.net:my/my-box-config.git
+    - from: git@enterprise-github.net:my/my-box-config.git
       dir: /vagrant
 
-    - from: git@elephanthub.net:my/my-api-blueprint.git
+    - from: git@github.com:my/my-api-blueprint.git
       dir: /vagrant
 
-    - from: git@elephanthub.net:my/my-api.git
+    - from: git@github.com:my/my-api.git
       dir: /vagrant
 
 files:
