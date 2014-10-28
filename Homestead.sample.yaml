@@ -1,77 +1,47 @@
 ---
-ip: "192.168.10.10"
+ip: "192.168.10.11"
 memory: 2048
 cpus: 1
+name: my-stuff
 
-port80: 8000
-port3306: 3306
-port5432: 5432
+ports:
+    - map: 3306
+      to: 3306
+
+    - map: 5432
+      to: 5432
+
+    - map: 27017
+      to: 27017
 
 authorize: ~/.ssh/id_rsa.pub
 
 keys:
     - ~/.ssh/id_rsa
-
-folders:
-    - map: ~/Sites/dir
-      to: /vagrant/dir
-
-# sites: # PHP / Laravel
-#     - map: app.dev
-#       to: /vagrant/dir
-
-# variables:
-#     - key: APP_ENV
-#       value: local
-
-files:
-    - from: /vagrant/scripts/files/nginx/mock.conf
-      to: /etc/nginx/sites-enabled/mock.conf
-
-    - from: /vagrant/scripts/files/nginx/aglio.conf
-      to: /etc/nginx/sites-enabled/aglio.conf
-
-    - from: /vagrant/scripts/files/nginx/beanstalkd.conf
-      to: /etc/nginx/sites-enabled/beanstalkd.conf
-
-    - from: /vagrant/scripts/files/nginx/genghis.conf
-      to: /etc/nginx/sites-enabled/genghis.conf
-
-    - from: /vagrant/scripts/files/nginx/redis.conf
-      to: /etc/nginx/sites-enabled/redis.conf
-
-    - from: /vagrant/scripts/files/nginx/ngrok.conf
-      to: /etc/nginx/sites-enabled/ngrok.conf
-
-    - from: /vagrant/scripts/files/nginx/api.conf
-      to: /etc/nginx/sites-enabled/api.conf
-
-    - from: /vagrant/scripts/files/nginx/spa.conf
-      to: /etc/nginx/sites-enabled/spa.conf
-
-commands:
-    - sudo npm install -g sails
-    - sudo /etc/init.d/nginx restart
+    - ~/.ssh/github_rsa
 
 repos:
-    - from: git@github.com:laravel/homestead.git
+    - from: git@elephanthub.net:my/my-box-config.git
       dir: /vagrant
 
-# Not supported yet
-#
-# databases:
-#     mysql:
-#         - dbname: database_name
-#           username: root
-#           password: root
-#           import: /vagrant/files/mysql_import.sql
-#     mongo:
-#         - dbname: database_name
-#           username: root
-#           password: root
-#           import: /vagrant/files/mongo_import.bson
-#     postgresql:
-#         - dbname: database_name
-#           username: root
-#           password: root
-#           import: /vagrant/files/mongo_import.pgsql
+    - from: git@elephanthub.net:my/my-api-blueprint.git
+      dir: /vagrant
+
+    - from: git@elephanthub.net:my/my-api.git
+      dir: /vagrant
+
+files:
+    - from: /vagrant/my-box-config/nginx/*
+      to: /etc/nginx/sites-enabled/
+
+commands:
+    # Install node packages
+    - sudo npm install -g sails grunt-cli
+    - sudo npm install -g pm2 --unsafe-perm
+    # Bounce NGINX
+    - sudo /etc/init.d/nginx restart
+    # Build the API
+    - cd /vagrant/my-api/ && npm install
+    # Import the Initial SQL Dump
+    - cd /vagrant/my-api/ && grunt import --file="/vagrant/my-box-config/sql/dump.sql" --db="mydb" --username="root" --password="root"
+    # Start screens
