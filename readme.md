@@ -14,7 +14,6 @@
 ```
 
 ##mysql: `root:root`
-  ![image](docs/mysql.png)
 
 ##Configuration Options sample file should be moved from `Homestead.sample.yaml` to `Homestead.yaml`
 
