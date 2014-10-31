@@ -1,0 +1,33 @@
+---
+ip: "192.168.10.11"
+memory: 2048
+cpus: 2
+name: nextgen
+
+ports:
+    - map: 3306
+      to: 3306
+
+    - map: 5432
+      to: 5432
+
+    - map: 27017
+      to: 27017
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+    - ~/.ssh/github_rsa
+
+files:
+    - from: /vagrant/dmf-box-config/nginx/mock.conf
+      to: /etc/nginx/sites-enabled/mock.conf
+
+commands:
+    # Install node packages
+    - sudo npm install -g sails grunt-cli grunt
+    - sudo npm install -g pm2@latest --unsafe-perm
+    # Install Mongo Hacker
+    - cd ~ && git clone git@github.com:TylerBrock/mongo-hacker.git && cd ~/mongo-hacker && make
+    - screen -dmS redis zsh -c 'redis-commander'
