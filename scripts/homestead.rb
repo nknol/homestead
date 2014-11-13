@@ -18,8 +18,11 @@ class Homestead
     end
 
     # Configure Port Forwarding To The Box
-    settings["ports"].each do |port|
-      config.vm.network "forwarded_port", guest: port["map"], host: port["to"]
+    # Configure Port Forwarding To The Box
+    if settings.has_key?("ports")
+      settings["ports"].each do |port|
+        config.vm.network "forwarded_port", guest: port["map"], host: port["to"]
+      end
     end
 
     # Configure The Public Key For SSH Access
@@ -118,7 +121,7 @@ class Homestead
         end
       end
     end
-    
+
     # Configure Git User
     if settings.has_key?("git")
       settings["git"].each do |g|
@@ -129,7 +132,7 @@ class Homestead
         end
       end
     end
-    
+
   # Updating the hosts file with all the sites that are defined in Homestead.yaml
   if Vagrant.has_plugin?("vagrant-hostsupdater") && site["hosts_file_additions"] == true
         hosts = []
